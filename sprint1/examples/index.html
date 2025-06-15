@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prime number search</title>
+    <script src="isPrime.js"></script>
+    <script src="eratosthenes.js"></script>
+    <script src="getLeastPrimesLinear.js"></script>
+</head>
+<body>
+    <h1>Prime number search</h1>
+
+    <div>
+        <label for="prime-number-input">Is this number prime?</label>
+        <input id="prime-number-input" type="number" placeholder="Enter a number"/>
+    </div>
+    <br>
+    <div>
+        <label for="all-prime-numbers-eratosthenes-input">Get all prime numbers using the Sieve of Eratosthenes.</label>
+        <input id="all-prime-numbers-eratosthenes-input" type="number" placeholder="Enter a number"/>
+        <div style="width: 600px"></div>
+    </div>
+    <br>
+    <div>
+        <label for="all-prime-numbers-linear-input">Get all prime numbers using the linear sieve.</label>
+        <input id="all-prime-numbers-linear-input" type="number" placeholder="Enter a number"/>
+        <div style="width: 600px"></div>
+    </div>
+
+    <script>
+        const primeNumberInput = document.getElementById("prime-number-input");
+        primeNumberInput.addEventListener("input", ({ target: { value }}) => {
+            primeNumberInput.nextSibling.textContent = isPrimeEffective(Number(value)) ? " YES" : " NO"
+        })
+        primeNumberInput.addEventListener('keyup', (event) => {
+          const { target: { value }} = event;
+          if (event.key === 'Backspace' && !value) {
+            primeNumberInput.nextSibling.textContent = ""
+          }
+        });
+
+        const allPrimeNumbersEratosthenesInput = document.getElementById("all-prime-numbers-eratosthenes-input");
+        allPrimeNumbersEratosthenesInput.addEventListener("input", ({ target: { value }}) => {
+          allPrimeNumbersEratosthenesInput.nextElementSibling.textContent = ` [${eratosthenesEffective(Number(value)).join(", ")}]`
+        })
+        allPrimeNumbersEratosthenesInput.addEventListener('keyup', (event) => {
+          const { target: { value }} = event;
+          if (event.key === 'Backspace' && !value) {
+            allPrimeNumbersEratosthenesInput.nextElementSibling.textContent = ""
+          }
+        });
+        const allPrimeNumbersLinearInput = document.getElementById("all-prime-numbers-linear-input");
+        allPrimeNumbersLinearInput.addEventListener("input", ({ target: { value }}) => {
+          const [primes, leastPrimes] = getLeastPrimesLinear(Number(value));
+          allPrimeNumbersLinearInput.nextElementSibling.innerHTML = `<strong>Primes: </strong>[${primes.join(", ")}] <br> <strong>Least primes: </strong> [${leastPrimes.join(", ")}]`;
+        })
+        allPrimeNumbersLinearInput.addEventListener('keyup', (event) => {
+          const { target: { value }} = event;
+          if (event.key === 'Backspace' && !value) {
+            allPrimeNumbersLinearInput.nextElementSibling.textContent = ""
+          }
+        });
+    </script>
+</body>
+</html>
