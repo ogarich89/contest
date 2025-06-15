@@ -23,8 +23,14 @@ const readString = () => {
     return string;
 }
 
-const readArray = () => {
+const readStringArray = () => {
     const arr = _inputLines[_curLine].trim().split(" ");
+    _curLine++;
+    return arr;
+}
+
+const readIntArray = () => {
+    const arr = _inputLines[_curLine].trim().split(" ").map(Number);
     _curLine++;
     return arr;
 }
